@@ -20,6 +20,19 @@
 
 # Diff Algorithm (Reconciliation algo / react fiber) -> Under the hood of react working
 
+- “React re-renders a component when its state or props change. However, it skips re-rendering if the state value is the same as before. React also batches multiple state updates for performance optimization.”
+
 # Virtual dom
 
-- virtual dom is representation of actual DOM
+- virtual dom is representation of actual DOM and its lightweight copy of actual DOM, faster
+
+- React keeps a virtual version of your UI in memory.
+
+- When something changes (like state), React:
+  Creates a new Virtual DOM.
+
+- Compares it with the old Virtual DOM (this is called diffing).
+
+- React finds exactly what changed (e.g., one text value).
+
+- React updates only that part of the Real DOM, not the entire page.
