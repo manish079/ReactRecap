@@ -1,4 +1,4 @@
-# Parcel
+# Parcel (Why react is faster)
 
 - Dev build
 - Local Server
