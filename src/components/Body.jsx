@@ -1,28 +1,41 @@
 import { RestaurantCard } from "./RestaurantCard";
+import resList from "../utils/mockData.json";
+import { useState } from "react";
 
 export const Body = () => {
+  const allRestFilteredList =
+    resList?.data?.cards[1]?.card.card.gridElements.infoWithStyle.restaurants;
+
+  const [topRatedRestaurants, setTopRatedRestaurants] =
+    useState(allRestFilteredList);
+
+  const getTopRatedRestaurants = () => {
+    console.log("top rated restaurants clicked");
+
+    const filteredTopRatedRestaurants = allRestFilteredList.filter(
+      (rest) => rest.info.avgRating > 4.5
+    );
+
+    setTopRatedRestaurants(filteredTopRatedRestaurants);
+  };
+
   return (
     <div className="body">
-      <div className="search">Search</div>
+      <div className="search-container flex">
+        <div className="search">Search</div>
+        <button
+          className="search-btn"
+          onClick={() => {
+            getTopRatedRestaurants();
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+      </div>
       <div className="rest-container flex">
-        <RestaurantCard
-          restName="Pizza"
-          cousins="Biryani"
-          rating="4.4"
-          time={38}
-        />
-        <RestaurantCard
-          restName="Margerita"
-          cousins="Biryani"
-          rating="4.4"
-          time={38}
-        />
-        <RestaurantCard
-          restName="Pizza"
-          cousins="Biryani"
-          rating="4.4"
-          time="38"
-        />
+        {topRatedRestaurants?.map((restaurent) => (
+          <RestaurantCard key={restaurent.info.id} resData={restaurent.info} />
+        ))}
       </div>
     </div>
   );
