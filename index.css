@@ -1,4 +1,74 @@
-#heading {
-  color: red;
-  font-weight: bolder;
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 80%;
+  margin: auto;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+/*************** Header ***************/
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid red;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+}
+.logo > img {
+  width: 100%;
+}
+.nav-items > ul {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  list-style: none;
+  font-size: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.nav-items > ul :hover {
+  color: aqua;
+}
+
+#active {
+  color: aqua;
+}
+
+/* Body */
+
+.rest-container {
+}
+.rest-cards {
+  width: 200px;
+  height: 300px;
+  border: 1px solid red;
+  padding: 5px;
+}
+
+.rest-card-img {
+  width: 100%;
 }
