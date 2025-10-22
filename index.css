@@ -85,3 +85,17 @@ body {
   padding: 5px 10px;
   cursor: pointer;
 }
+
+/* Shimmer container */
+.shimmer-container {
+  width: 250px;
+  height: 250px;
+  border: 1px solid red;
+  padding: 5px;
+}
+
+.login-btn {
+  background-color: gray;
+  padding: 5px;
+  cursor: pointer;
+}

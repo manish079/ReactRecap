@@ -36,3 +36,13 @@
 - React finds exactly what changed (e.g., one text value).
 
 - React updates only that part of the Real DOM, not the entire page.
+
+# useEffect : it called after re-render completed of a component then its call useEffect
+
+<!-- ######## -->
+
+# const [loginBtn, setLoginBtn] = useState("Login")
+
+    onClick(()=> setLoginBtn("Logout"))
+
+- everytime when state is updated then component is re-rendered and again it treating const as a first time declaration with new value (Logout), that treats as a first time this variable is declared. and its update only that state variable not whole component because of reconciliation or react fiber.

@@ -1,25 +1,50 @@
 import { RestaurantCard } from "./RestaurantCard";
 import resList from "../utils/mockData.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Shimmer } from "./Shimmer";
 
 export const Body = () => {
-  const allRestFilteredList =
-    resList?.data?.cards[1]?.card.card.gridElements.infoWithStyle.restaurants;
+  //   const allRestFilteredList =
+  //     resList?.data?.cards[1]?.card.card.gridElements.infoWithStyle.restaurants;
 
-  const [topRatedRestaurants, setTopRatedRestaurants] =
-    useState(allRestFilteredList);
+  //   const [allRestFilteredList, setAllRestFilteredList] = useState([]);
+
+  //   const [topRatedRestaurants, setTopRatedRestaurants] =
+  //     useState(allRestFilteredList);
+
+  const [topRatedRestaurants, setTopRatedRestaurants] = useState([]);
 
   const getTopRatedRestaurants = () => {
-    console.log("top rated restaurants clicked");
-
-    const filteredTopRatedRestaurants = allRestFilteredList.filter(
+    const filteredTopRatedRestaurants = topRatedRestaurants.filter(
       (rest) => rest.info.avgRating > 4.5
     );
 
     setTopRatedRestaurants(filteredTopRatedRestaurants);
   };
 
-  return (
+  // It executes after completely render this component
+
+  useEffect(() => {
+    fetchRestaurant();
+  }, []);
+
+  const fetchRestaurant = async () => {
+    // fetch returns promise
+    const restResponse = await fetch(
+      "https://raw.githubusercontent.com/namastedev/namaste-react/refs/heads/main/swiggy-api"
+    );
+
+    const jsonResp = await restResponse.json();
+
+    setTopRatedRestaurants(
+      jsonResp?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        .restaurants
+    );
+  };
+
+  return topRatedRestaurants.length === 0 ? (
+    <Shimmer len={topRatedRestaurants.length} />
+  ) : (
     <div className="body">
       <div className="search-container flex">
         <div className="search">Search</div>
