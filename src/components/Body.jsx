@@ -24,7 +24,7 @@ export const Body = () => {
     setTopRatedRestaurants(filteredTopRatedRestaurants);
   };
 
-  // It executes after completely render this component
+  // It executes after completely rendered this component
   useEffect(() => {
     fetchRestaurant();
   }, []);
