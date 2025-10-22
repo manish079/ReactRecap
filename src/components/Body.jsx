@@ -13,6 +13,8 @@ export const Body = () => {
   //     useState(allRestFilteredList);
 
   const [topRatedRestaurants, setTopRatedRestaurants] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   const getTopRatedRestaurants = () => {
     const filteredTopRatedRestaurants = topRatedRestaurants.filter(
@@ -23,7 +25,6 @@ export const Body = () => {
   };
 
   // It executes after completely render this component
-
   useEffect(() => {
     fetchRestaurant();
   }, []);
@@ -40,6 +41,18 @@ export const Body = () => {
       jsonResp?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         .restaurants
     );
+    setFilteredRestaurants(
+      jsonResp?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        .restaurants
+    );
+  };
+
+  const getSearchFilteredRest = () => {
+    const filteredRest = topRatedRestaurants.filter((res) =>
+      res.info.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    setFilteredRestaurants(filteredRest);
   };
 
   return topRatedRestaurants.length === 0 ? (
@@ -47,7 +60,23 @@ export const Body = () => {
   ) : (
     <div className="body">
       <div className="search-container flex">
-        <div className="search">Search</div>
+        <div className="search">
+          <input
+            type="text"
+            className="search-input"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key == "Enter") {
+                getSearchFilteredRest();
+              }
+            }}
+          />
+          <button className="search-btn" onClick={getSearchFilteredRest}>
+            Search
+          </button>
+        </div>
         <button
           className="search-btn"
           onClick={() => {
@@ -58,7 +87,7 @@ export const Body = () => {
         </button>
       </div>
       <div className="rest-container flex">
-        {topRatedRestaurants?.map((restaurent) => (
+        {filteredRestaurants?.map((restaurent) => (
           <RestaurantCard key={restaurent.info.id} resData={restaurent.info} />
         ))}
       </div>
